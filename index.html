@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to SolVision</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #7b2ff7, #06b6d4);
+            color: white;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 0.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        header nav {
+            display: flex;
+            gap: 1rem;
+        }
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        header .price {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        header .price img {
+            width: 24px;
+            height: 24px;
+            animation: rotate-x 2s linear infinite;
+        }
+        header .price p {
+            margin: 0;
+        }
+        @keyframes rotate-x {
+            0% {
+                transform: rotateX(0deg);
+            }
+            100% {
+                transform: rotateX(360deg);
+            }
+        }
+        .container {
+            margin-top: 60px;
+        }
+        .section {
+            padding: 3rem;
+            text-align: center;
+        }
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        .card {
+            background: rgba(0, 0, 0, 0.8);
+            margin: 1rem auto;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.7);
+        }
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+        .cta {
+            margin-top: 2rem;
+        }
+        .cta a {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #06b6d4;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: transform 0.3s, background 0.3s;
+        }
+        .cta a:hover {
+            transform: scale(1.1);
+            background: #04a3c0;
+        }
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1rem;
+            text-align: center;
+        }
+        .social-icons a {
+            margin: 0 10px;
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff6347; /* Changed to a contrasting color */
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        .back-to-top:hover {
+            background: #e5533c;
+            transform: scale(1.1);
+        }
+        .chart-container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#why-us">Why Us</a>
+            <a href="#performance">Performance</a>
+            <a href="#how-to-stake">How to Stake</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#feedback">Feedback</a>
+        </nav>
+        <div class="price">
+            <img src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="Solana Logo">
+            <div>
+                <p><strong>USD:</strong> <span id="sol-price-usd">Loading...</span> | <strong>EUR:</strong> <span id="sol-price-eur">Loading...</span></p>
+            </div>
+        </div>
+    </header>
+
+    <button class="back-to-top" id="back-to-top">↑</button>
+
+    <div class="container">
+        <div class="section" id="welcome">
+            <img src="Logo.jpg" alt="Validator Logo" style="width: 200px; margin-bottom: 1rem;">
+            <h2>Welcome to SolVision 🚀</h2>
+            <p>Delegate your SOL and enjoy 0% fees + MEV rewards!<br>Trusted, Reliable, and Efficient.</p>
+            <div class="cta">
+                <a href="https://explorer.solana.com/address/BtUD8v5vEXJ8CSUo2qQq4vqQxKSiLKUp1bxeeGLJsPXM?cluster=mainnet-beta" target="_blank">Delegate Your Stake</a>
+            </div>
+        </div>
+
+        <div class="section" id="why-us">
+            <h2>Why Choose Us</h2>
+            <div class="card">
+                <p><strong>💸 0% Commission:</strong> Keep 100% of your rewards.</p>
+            </div>
+            <div class="card">
+                <p><strong>🚀 MEV Rewards:</strong> Maximize profitability.</p>
+            </div>
+            <div class="card">
+                <p><strong>🛡️ Reliable Infrastructure:</strong> 99.99% uptime.</p>
+            </div>
+        </div>
+
+        <div class="section" id="performance">
+            <h2>Performance Metrics</h2>
+            <div class="card">
+                <p><strong>Uptime:</strong> 99.99%</p>
+                <p><strong>Delegated Stake:</strong> 123,456.78 SOL</p>
+                <p><strong>Vote Success Rate:</strong> 98.5%</p>
+                <p><strong>Blocks Produced:</strong> 10,450</p>
+            </div>
+        </div>
+
+        <div class="section" id="how-to-stake">
+            <h2>How to Stake</h2>
+            <div class="card">
+                <p><strong>Step 1:</strong> Download and install a supported wallet:</p>
+                <ul>
+                    <li><a href="https://phantom.app/" target="_blank">Phantom Wallet</a></li>
+                    <li><a href="https://solflare.com/" target="_blank">Solflare Wallet</a></li>
+                </ul>
+            </div>
+            <div class="card">
+                <p><strong>Step 2:</strong> Transfer your SOL tokens to your wallet.</p>
+            </div>
+            <div class="card">
+                <p><strong>Step 3:</strong> Open the staking feature in your wallet.</p>
+            </div>
+            <div class="card">
+                <p><strong>Step 4:</strong> Search for <strong>SolVision</strong> using the validator address:</p>
+                <p><code>BtUD8v5vEXJ8CSUo2qQq4vqQxKSiLKUp1bxeeGLJsPXM</code></p>
+            </div>
+            <div class="card">
+                <p><strong>Step 5:</strong> Choose the amount of SOL you wish to delegate and confirm the transaction.</p>
+            </div>
+        </div>
+
+        <div class="section" id="reviews">
+            <h2>Reviews</h2>
+            <div class="reviews-grid">
+                <div class="card">
+                    <p><strong>Alex:</strong> "Great validator with 0% fees. Highly recommend!"</p>
+                </div>
+                <div class="card">
+                    <p><strong>Sarah:</strong> "Reliable and efficient. My rewards have been amazing!"</p>
+                </div>
+                <div class="card">
+                    <p><strong>John:</strong> "Trustworthy validator with excellent uptime."</p>
+                </div>
+                <div class="card">
+                    <p><strong>Emma:</strong> "Amazing performance and user support."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="feedback">
+            <h2>Send Us Your Feedback</h2>
+            <form action="#" method="POST">
+                <div>
+                    <label for="name">Name:</label><br>
+                    <input type="text" id="name" name="name" required><br><br>
+                </div>
+                <div>
+                    <label for="message">Message:</label><br>
+                    <textarea id="message" name="message" rows="5" required></textarea><br><br>
+                </div>
+                <button type="submit" style="padding: 0.5rem 1rem; background: #06b6d4; color: white; border: none; border-radius: 5px;">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="social-icons">
+            <a href="https://twitter.com" target="_blank">Twitter</a>
+            <a href="https://telegram.org" target="_blank">Telegram</a>
+            <a href="https://discord.com" target="_blank">Discord</a>
+        </div>
+        <p>© 2024 SolVision. All rights reserved.</p>
+    </footer>
+
+    <script>
+        async function fetchSolPrice() {
+            try {
+                const response = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=solana&vs_currencies=usd,eur");
+                const data = await response.json();
+                document.getElementById("sol-price-usd").textContent = `$${data.solana.usd}`;
+                document.getElementById("sol-price-eur").textContent = `€${data.solana.eur}`;
+            } catch (error) {
+                console.error("Error fetching SOL price:", error);
+            }
+        }
+
+        const backToTopButton = document.getElementById("back-to-top");
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 200) {
+                backToTopButton.style.display = "block";
+            } else {
+                backToTopButton.style.display = "none";
+            }
+        });
+
+        backToTopButton.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchSolPrice();
+        });
+    </script>
+</body>
+</html>
